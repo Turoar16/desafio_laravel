@@ -1,3 +1,27 @@
+# Desafio Laravel
+
+El objetivo es desarrollar una aplicación web que permita a los usuarios gestionar sus gastos e ingresos. La aplicación debe permitir a los usuarios registrar sus gastos e ingresos, así como ver el estado actual de su cuenta.
+
+## Instalación
+
+1. Clona el repositorio.
+2. Ejecuta `composer install` para instalar las dependencias de PHP.
+3. Crea una Base de datos en MySql con el nombre "desafio_laravel".
+4. Configura el archivo .env con tus datos de configuración.
+        DB_CONNECTION=mysql
+        DB_HOST=127.0.0.1
+        DB_PORT=3306
+        DB_DATABASE=desafio_laravel
+        DB_USERNAME=root
+        DB_PASSWORD=
+5. Ejecuta `php artisan migrate` para ejecutar las migraciones.
+6. Ejecuta `php artisan db:seed` para ejecutar los seeders.
+7. Utiliza el email y contraseña por defecto email: admin@admin.com, contraseña:12345678.
+
+## Uso
+
+1. Ejecuta `php artisan serve` para iniciar el servidor local.
+2. Abre tu navegador y accede a `http://localhost:8000`.
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">
