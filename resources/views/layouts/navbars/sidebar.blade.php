@@ -49,14 +49,26 @@
       </li>
       <li class="nav-item{{ $activePage == 'ingresos' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('ingresos.index') }}">
-          <i class="material-icons">notifications</i>
+          <i class="material-icons">wallet</i>
           <p>Ingresos</p>
         </a>
       </li>
-      <li class="nav-item{{ $activePage == 'language' ? ' active' : '' }}">
-        <a class="nav-link" href="#">
+      <li class="nav-item{{ $activePage == 'gastos' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('gastos.index') }}">
           <i class="material-icons">language</i>
-          <p>{{ __('RTL Support') }}</p>
+          <p>Gastos</p>
+        </a>
+      </li>
+      <li class="nav-item{{ $activePage == 'permissions' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('permissions.index') }}">
+          <i class="material-icons">lock</i>
+          <p>Permisos</p>
+        </a>
+      </li>
+      <li class="nav-item{{ $activePage == 'roles' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('roles.index') }}">
+          <i class="material-icons">library_books</i>
+          <p>Roles</p>
         </a>
       </li>
     </ul>
