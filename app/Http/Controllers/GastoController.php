@@ -6,11 +6,13 @@ use Illuminate\Http\Request;
 use App\Models\Gasto;
 use App\Http\Requests\GastoCreateRequest;
 use App\Http\Requests\GastoEditRequest;
+use Illuminate\Support\Facades\Gate;
 
 class GastoController extends Controller
 {
     public function index()
     {
+        abort_if(Gate::denies('gasto_index'), 403);
         $user_id = auth()->id(); // Obtener el ID del usuario autenticado
 
         // Filtrar los gastos por usuario_id y paginar los resultados
@@ -21,6 +23,7 @@ class GastoController extends Controller
 
     public function create()
     {
+        abort_if(Gate::denies('gasto_create'), 403);
         return view('gastos.create');
     }
 
@@ -32,6 +35,7 @@ class GastoController extends Controller
 
     public function edit(Gasto $gasto)
     {
+        abort_if(Gate::denies('gasto_edit'), 403);
         return view('gastos.edit', compact('gasto'));
     }
 
@@ -42,8 +46,9 @@ class GastoController extends Controller
         return redirect()->route('gastos.index')->with('success', 'Gasto actualizado correctamente');
     }
 
-    public function delete(Gasto $gasto)
+    public function destroy(Gasto $gasto)
     {
+        abort_if(Gate::denies('gasto_destroy'), 403);
         $gasto->delete();
         return back()->with('success', 'Gasto eliminado correctamente');
     }

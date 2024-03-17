@@ -6,11 +6,13 @@ use Illuminate\Http\Request;
 use App\Models\Ingreso;
 use App\Http\Requests\IngresoCreateRequest;
 use App\Http\Requests\IngresoEditRequest;
+use Illuminate\Support\Facades\Gate;
 
 class IngresoController extends Controller
 {
     public function index()
     {
+        abort_if(Gate::denies('ingreso_index'), 403);
         $user_id = auth()->id(); // Obtener el ID del usuario autenticado
 
         // Filtrar los gastos por usuario_id y paginar los resultados
@@ -22,6 +24,7 @@ class IngresoController extends Controller
 
     public function create()
     {
+        abort_if(Gate::denies('ingreso_create'), 403);
         return view('ingresos.create');
     }
 
@@ -33,6 +36,7 @@ class IngresoController extends Controller
 
     public function edit(Ingreso $ingreso)
     {
+        abort_if(Gate::denies('ingreso_edit'), 403);
         return view('ingresos.edit', compact('ingreso'));
     }
 
@@ -43,8 +47,9 @@ class IngresoController extends Controller
         return redirect()->route('ingresos.index')->with('success', 'Ingreso actualizado correctamente');
     }
 
-    public function delete(Ingreso $ingreso)
+    public function destroy(Ingreso $ingreso)
     {
+        abort_if(Gate::denies('ingreso_destroy'), 403);
         $ingreso->delete();
         return back()->with('success', 'Ingreso eliminado correctamente');
     }

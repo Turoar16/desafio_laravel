@@ -6,29 +6,51 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserEditRequest;
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
     public function index()
     {
+        abort_if(Gate::denies('user_create'), 403);
         $users = User::paginate(5);
         return view('users.index', compact('users'));
     }
 
     public function create()
     {
-        return view('users.create');
+        abort_if(Gate::denies('user_index'), 403);
+        $roles = Role::all()->pluck('name', 'id');
+        return view('users.create', compact('roles'));
     }
 
     public function store(UserCreateRequest $request)
     {
-        User::create($request->all());
+        $user = User::create($request->only('nombre', 'name', 'email', 'telefono', 'direccion')
+        + [
+            'password' => bcrypt($request->input('password')),
+        ]);
+        $roles = $request->input('roles', []);
+        //dd($roles);
+        $user->roles()->sync($request->input('roles', []));
+        //$user->syncRoles($roles);
         return redirect()->route('users.index')->with('success', 'Usuario creado correctamente');
     }
 
     public function edit(User $user)
     {
-        return view('users.edit', compact('user'));
+        abort_if(Gate::denies('user_edit'), 403);
+        $roles = Role::all()->pluck('name', 'id');
+        $user->load('roles');
+        return view('users.edit', compact('user', 'roles'));
+    }
+
+    public function show(User $user)
+    {
+        abort_if(Gate::denies('user_show'), 403);
+        $user->load('roles');
+        return view('users.show', compact('user'));
     }
 
     public function update(UserEditRequest $request, User $user)
@@ -40,11 +62,19 @@ class UserController extends Controller
             $data['password'] = bcrypt($password);
 
         $user->update($data);
-        return redirect()->route('users.index')->with('success', 'Usuario actualizado correctamente');
+        $roles = $request->input('roles', []);
+        $user->roles()->sync($request->input('roles', []));
+        return redirect()->route('users.show', $user->id)->with('success', 'Usuario actualizado correctamente');
     }
 
-    public function delete(User $user)
+    public function destroy(User $user)
     {
+        abort_if(Gate::denies('user_destroy'), 403);
+
+        if (auth()->user()->id == $user->id) {
+            return redirect()->route('users.index')->with('danger', 'No se puede eliminar Usuario logueado');
+        }
+
         $user->delete();
         return back()->with('success', 'Usuario eliminado correctamente');
     }

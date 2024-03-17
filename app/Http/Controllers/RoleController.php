@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use App\Http\Requests\RoleCreateRequest;
+use App\Http\Requests\RoleEditRequest;
+use Illuminate\Support\Facades\Gate;
 
 class RoleController extends Controller
 {
@@ -15,6 +18,7 @@ class RoleController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('role_index'), 403);
         $roles = Role::paginate(5);
     
         return view('roles.index', compact('roles'));
@@ -27,6 +31,7 @@ class RoleController extends Controller
      */
     public function create()
     {
+        abort_if(Gate::denies('role_create'), 403);
         $permissions = Permission::all()->pluck('name', 'id');
         return view('roles.create', compact('permissions'));
     }
@@ -37,7 +42,7 @@ class RoleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RoleCreateRequest $request)
     {
         $role = Role::create($request->only('name'));
         $role->permissions()->sync($request->input('permissions', []));
@@ -51,9 +56,11 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Role $role)
     {
-        //
+        abort_if(Gate::denies('role_show'), 403);
+        $role->load('permissions');
+        return view('roles.show', compact('role'));
     }
 
     /**
@@ -64,6 +71,7 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
+        abort_if(Gate::denies('role_edit'), 403);
         $permissions = Permission::all()->pluck('name', 'id');
         $role->load('permissions');
         // dd($role);
@@ -77,7 +85,7 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Role $role)
+    public function update(RoleEditRequest $request, Role $role)
     {
         $role->update($request->only('name'));
 
@@ -95,6 +103,7 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
+        abort_if(Gate::denies('role_destroy'), 403);
         $role->delete();
 
         return redirect()->route('roles.index');

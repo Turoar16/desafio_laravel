@@ -41,36 +41,46 @@
           </ul>
         </div>
       </li>
+      @can('user_index')
       <li class="nav-item{{ $activePage == 'users' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('users.index') }}">
           <i class="material-icons">content_paste</i>
             <p>Usuarios</p>
         </a>
       </li>
+      @endcan
+      @can('ingreso_index')
       <li class="nav-item{{ $activePage == 'ingresos' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('ingresos.index') }}">
           <i class="material-icons">wallet</i>
           <p>Ingresos</p>
         </a>
       </li>
+      @endcan
+      @can('gasto_index')
       <li class="nav-item{{ $activePage == 'gastos' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('gastos.index') }}">
           <i class="material-icons">language</i>
           <p>Gastos</p>
         </a>
       </li>
+      @endcan
+      @can('permission_index')
       <li class="nav-item{{ $activePage == 'permissions' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('permissions.index') }}">
           <i class="material-icons">lock</i>
           <p>Permisos</p>
         </a>
       </li>
+      @endcan
+      @can('role_index')
       <li class="nav-item{{ $activePage == 'roles' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('roles.index') }}">
           <i class="material-icons">library_books</i>
           <p>Roles</p>
         </a>
       </li>
+      @endcan
     </ul>
   </div>
 </div>

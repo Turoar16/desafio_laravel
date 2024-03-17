@@ -19,7 +19,9 @@
                     @endif
                     <div class="row">
                       <div class="col-12 text-right">
+                      @can('ingreso_create')
                         <a href="{{ route('ingresos.create') }}" class="btn btn-sm btn-facebook">Añadir ingreso</a>
+                      @endcan
                       </div>
                     </div>
                     <div class="table-responsive">
@@ -43,7 +45,10 @@
                               <td class="text-center">{{ $ingreso->monto }}</td>
                               <td class="text-center">{{ $ingreso->created_at }}</td>
                               <td class="td-actions text-right">
+                              @can('ingreso_edit')
                                 <a href="{{ route('ingresos.edit', $ingreso->id) }}" class="btn btn-warning"><i class="material-icons">edit</i></a>
+                              @endcan
+                              @can('ingreso_destroy')
                                 <form action="{{ route('ingresos.delete', $ingreso->id) }}" method="POST" style="display: inline-block;" onsubmit="return confirm('Seguro que quiere eliminar el Registro?')">
                                 @csrf
                                 @method('DELETE')
@@ -51,6 +56,7 @@
                                     <i class="material-icons">close</i>
                                     </button>
                                 </form>
+                              @endcan
                               </td>
                             </tr>
                           @endforeach
