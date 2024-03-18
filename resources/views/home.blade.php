@@ -17,24 +17,30 @@
 
             <!-- Tarjeta de Total Ingresos -->
             <div class="col-md-4">
-                <div class="card bg-success text-white">
-                    <div class="card-header"><i class="material-icons">wallet</i></div>
-                    <div class="card-body">
-                        <h5 class="card-title text-center">Total Ingresos</h5>
-                        <p class="card-text text-center display-4">{{ $total_ingresos }}</p>
+                <a href="{{ route('ingresos.index') }}" class="text-decoration-none text-dark">
+                    <div class="card bg-success text-white">
+                        <div class="card-header"><i class="material-icons">wallet</i></div>
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Total Ingresos</h5>
+                            <p class="card-text text-center display-4">{{ $total_ingresos }}</p>
+                        </div>
                     </div>
-                </div>
+                    <p class="text-center mt-2">Ir a Ingresos</p>
+                </a>
             </div>
 
             <!-- Tarjeta de Total Gastos -->
             <div class="col-md-4">
-                <div class="card bg-danger text-white">
-                    <div class="card-header"><i class="material-icons">store</i></div>
-                    <div class="card-body">
-                        <h5 class="card-title text-center">Total Gastos</h5>
-                        <p class="card-text text-center display-4">{{ $total_gastos }}</p>
+                <a href="{{ route('gastos.index') }}" class="text-decoration-none text-dark">
+                    <div class="card bg-danger text-white">
+                        <div class="card-header"><i class="material-icons">store</i></div>
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Total Gastos</h5>
+                            <p class="card-text text-center display-4">{{ $total_gastos }}</p>
+                        </div>
                     </div>
-                </div>
+                    <p class="text-center mt-2">Ir a Gastos</p>
+                </a>
             </div>
         </div>
     </div>

@@ -11,6 +11,11 @@
             <p class="card-category">Lista de roles registrados en la base de datos</p>
           </div>
           <div class="card-body">
+            @if (session('success'))
+                <div class="alert alert-success" role="success">
+                {{ session('success') }}
+                </div>
+            @endif
             <div class="row">
               <div class="col-12 text-right">
               @can('role_create')
@@ -53,7 +58,7 @@
                     @endcan
                     @can('role_destroy')
                       <form action="{{ route('roles.destroy', $role->id) }}" method="post"
-                        onsubmit="return confirm('areYouSure')" style="display: inline-block;">
+                        onsubmit="return confirm('Seguro que quiere eliminar el Registro?')" style="display: inline-block;">
                         @csrf
                         @method('DELETE')
                         <button type="submit" rel="tooltip" class="btn btn-danger">

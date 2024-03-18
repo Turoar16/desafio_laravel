@@ -3,24 +3,38 @@
     <nav class="float-left">
       <ul>
         <li>
-          <a href="https://www.creative-tim.com">
-              {{ __('Creative Tim') }}
+          <a href="{{ route('home') }}">
+              {{ __('Home') }}
           </a>
         </li>
         <li>
-          <a href="https://creative-tim.com/presentation">
-              {{ __('About Us') }}
+          @can('user_index')
+          <a href="{{ route('users.index') }}">
+              {{ __('Usuarios') }}
           </a>
+          @endcan
         </li>
         <li>
-          <a href="http://blog.creative-tim.com">
-              {{ __('Blog') }}
+          @can('permission_index')
+          <a href="{{ route('permissions.index') }}">
+              {{ __('Permisos') }}
           </a>
+          @endcan
         </li>
         <li>
-          <a href="https://www.creative-tim.com/license">
-              {{ __('Licenses') }}
+          @can('role_index')
+          <a href="{{ route('roles.index') }}">
+              {{ __('Roles') }}
           </a>
+          @endcan
+        </li>
+        <li>
+            <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                {{ __('Cerrar sesión') }}
+            </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
         </li>
       </ul>
     </nav>

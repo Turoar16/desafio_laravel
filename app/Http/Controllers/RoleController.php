@@ -33,6 +33,7 @@ class RoleController extends Controller
     {
         abort_if(Gate::denies('role_create'), 403);
         $permissions = Permission::all()->pluck('name', 'id');
+        
         return view('roles.create', compact('permissions'));
     }
 
@@ -47,7 +48,7 @@ class RoleController extends Controller
         $role = Role::create($request->only('name'));
         $role->permissions()->sync($request->input('permissions', []));
 
-        return redirect()->route('roles.index');
+        return redirect()->route('roles.index')->with('success', 'Role creado correctamente');
     }
 
     /**
@@ -92,7 +93,7 @@ class RoleController extends Controller
         $role->permissions()->sync($request->input('permissions', []));
         // $role->syncPermissions($request->input('permissions', []));
 
-        return redirect()->route('roles.index');
+        return redirect()->route('roles.index')->with('success', 'Role actualizado correctamente');
     }
 
     /**
@@ -106,6 +107,6 @@ class RoleController extends Controller
         abort_if(Gate::denies('role_destroy'), 403);
         $role->delete();
 
-        return redirect()->route('roles.index');
+        return redirect()->route('roles.index')->with('success', 'Role eliminado correctamente');
     }
 }
