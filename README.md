@@ -16,7 +16,7 @@ El objetivo es desarrollar una aplicación web que permita a los usuarios gestio
         DB_PASSWORD=
 5. Ejecuta `php artisan migrate` para ejecutar las migraciones.
 6. Ejecuta `php artisan db:seed` para ejecutar los seeders.
-7. Utiliza el email y contraseña por defecto email: admin@admin.com, contraseña:12345678.
+7. Utiliza el usuario y contraseña por defecto usuario: admin, contraseña:12345678.
 
 ## Uso
 
