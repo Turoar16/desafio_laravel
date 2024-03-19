@@ -24,10 +24,10 @@ class UserCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => 'required|min:3|max:25',
-            'name' => 'required|unique:users',
-            'email' => 'required|email|unique:users',
-            'password' => 'required'
+            'nombre' => 'required|min:3|max:25',//nombre es requerido minimo de 3 a 25 caracteres.
+            'name' => 'required|unique:users',//nombre de usuario es requerido es de valor unico
+            'email' => 'required|email|unique:users',//email es requerido y de valor unico.
+            'password' => 'required'//la contraseña es requerido.
         ];
     }
 

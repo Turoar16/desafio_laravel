@@ -25,7 +25,7 @@ class PermissionEditRequest extends FormRequest
     {
         $permission = $this->route('permission');
         return [
-            'name' => 'required|min:3|max:25|unique:permissions,name,' . $permission->id,
+            'name' => 'required|min:3|max:25|unique:permissions,name,' . $permission->id,//nombre es requerido ninimo de 3 a 25 caracteres,valor unico. En el caso de no cambios no generara error de validacion.
         ];
     }
 }

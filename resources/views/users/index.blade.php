@@ -6,12 +6,16 @@
           <div class="col-md-12">
             <div class="row">
               <div class="col-md-12">
+                <!-- Tarjeta -->
                 <div class="card">
+                  <!-- Encabezado de la tarjeta -->
                   <div class="card-header card-header-primary">
                     <h4 class="card-title">Usuarios</h4>
                     <p class="card-category">Usuarios registrados</p>
                   </div>
+                  <!-- Cuerpo de la tarjeta -->
                   <div class="card-body">
+                    <!-- Mensajes de éxito o error -->
                     @if (session('success'))
                       <div class="alert alert-success" role="success">
                         {{ session('success') }}
@@ -22,6 +26,7 @@
                         {{ session('danger') }}
                       </div>
                     @endif
+                    <!-- Botón para añadir un nuevo usuario -->
                     <div class="row">
                       <div class="col-12 text-right">
                       @can('user_create')
@@ -29,9 +34,11 @@
                       @endcan
                       </div>
                     </div>
+                    <!-- Tabla para mostrar la lista de usuarios -->
                     <div class="table-responsive">
                       <table class="table">
                         <thead class="text-primary">
+                          <!-- Encabezados de la tabla -->
                           <th>ID</th>
                           <th>Nombre</th>
                           <th>Username</th>
@@ -42,8 +49,10 @@
                           <th class="text-right">Acciones</th>
                         </thead>
                         <tbody>
+                          <!-- Iteración sobre los usuarios -->
                           @foreach ($users as $user)
                             <tr>
+                              <!-- Datos del usuario -->
                               <td>{{ $user->id }}</td>
                               <td>{{ $user->nombre }}</td>
                               <td>{{ $user->name }}</td>
@@ -51,12 +60,14 @@
                               <td>{{ $user->telefono }}</td>
                               <td>{{ $user->direccion }}</td>
                               <td>
+                                <!-- Roles del usuario -->
                                 @forelse ($user->roles as $role)
                                   <span class="badge badge-info">{{ $role->name }}</span>
                                 @empty
                                   <span class="badge badge-danger">No roles</span>
                                 @endforelse
                               </td>
+                              <!-- Acciones -->
                               <td class="td-actions text-right">
                               @can('user_show')
                                 <a href="{{ route('users.show', $user->id) }}" class="btn btn-info"><i class="material-icons">person</i></a>
@@ -80,7 +91,9 @@
                       </table>
                     </div>
                   </div>
+                  <!-- Pie de la tarjeta -->
                   <div class="card-footer mr-auto">
+                    <!-- Paginación de la lista de usuarios -->
                     {{ $users->links() }}
                   </div>
                 </div>

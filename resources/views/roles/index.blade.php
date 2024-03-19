@@ -5,17 +5,22 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
+        <!-- Tarjeta para mostrar la lista de roles -->
         <div class="card">
+          <!-- Encabezado de la tarjeta -->
           <div class="card-header card-header-primary">
             <h4 class="card-title">Roles</h4>
             <p class="card-category">Lista de roles registrados en la base de datos</p>
           </div>
+          <!-- Cuerpo de la tarjeta -->
           <div class="card-body">
+            <!-- Mensaje de éxito en caso de operación exitosa -->
             @if (session('success'))
                 <div class="alert alert-success" role="success">
                 {{ session('success') }}
                 </div>
             @endif
+            <!-- Botón para añadir un nuevo rol (si el usuario tiene los permisos necesarios) -->
             <div class="row">
               <div class="col-12 text-right">
               @can('role_create')
@@ -23,9 +28,11 @@
               @endcan
               </div>
             </div>
+            <!-- Tabla para mostrar la lista de roles -->
             <div class="table-responsive">
               <table class="table ">
                 <thead class="text-primary">
+                  <!-- Encabezados de la tabla -->
                   <th> ID </th>
                   <th> Nombre </th>
                   <th> Guard </th>
@@ -34,12 +41,15 @@
                   <th class="text-right"> Acciones </th>
                 </thead>
                 <tbody>
+                  <!-- Iteración sobre los roles -->
                   @forelse ($roles as $role)
                   <tr>
+                    <!-- Datos de cada rol -->
                     <td>{{ $role->id }}</td>
                     <td>{{ $role->name }}</td>
                     <td>{{ $role->guard_name }}</td>
                     <td class="text-primary">{{ $role->created_at->toFormattedDateString() }}</td>
+                    <!-- Permisos asignados al rol -->
                     <td>
                       @forelse ($role->permissions as $permission)
                           <span class="badge badge-info">{{ $permission->name }}</span>
@@ -47,6 +57,7 @@
                           <span class="badge badge-danger">No permission added</span>
                       @endforelse
                     </td>
+                    <!-- Acciones disponibles para cada rol -->
                     <td class="td-actions text-right">
                     @can('role_show')
                       <a href="{{ route('roles.show', $role->id) }}" class="btn btn-info"> <i
@@ -69,6 +80,7 @@
                     </td>
                   </tr>
                   @empty
+                  <!-- Manejo de caso en que no haya roles registrados -->
                   <tr>
                     <td colspan="2">Sin registros.</td>
                   </tr>
@@ -78,11 +90,12 @@
               {{-- {{ $users->links() }} --}}
             </div>
           </div>
-          <!--Footer-->
+          <!--Pie de la tarjeta-->
           <div class="card-footer mr-auto">
+            <!-- Paginación de la lista de roles -->
             {{ $roles->links() }}
           </div>
-          <!--End footer-->
+          <!--Fin del pie de la tarjeta-->
         </div>
       </div>
     </div>

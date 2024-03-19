@@ -25,7 +25,7 @@ class RoleEditRequest extends FormRequest
     {
         $role = $this->route('role');
         return [
-            'name' => 'required|min:3|max:25|unique:roles,name,' . $role->id,
+            'name' => 'required|min:3|max:25|unique:roles,name,' . $role->id,//nombre es requerido ninimo de 3 a 25 caracteres,valor unico. En el caso de no cambios no generara error de validacion.
         ];
     }
 }

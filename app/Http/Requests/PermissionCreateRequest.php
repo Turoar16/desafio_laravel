@@ -24,7 +24,7 @@ class PermissionCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:3|max:25|unique:permissions',
+            'name' => 'required|min:3|max:25|unique:permissions',// nombre es requerido ninimo de 3 a 25 caracteres,valor unico.
         ];
     }
 }

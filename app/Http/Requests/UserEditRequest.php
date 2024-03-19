@@ -25,12 +25,12 @@ class UserEditRequest extends FormRequest
     {
         $user = $this->route('user');
         return [
-            'nombre' => 'required',
-            'name' => ['required', 'min:3', 'unique:users,name,' . $user->id],
+            'nombre' => 'required',//nombre es requerido.
+            'name' => ['required', 'min:3','max:25', 'unique:users,name,' . $user->id],//nombre de usuario es requerido minimo de 3 a 25 caracteres, valor unico en caso de no cambio no afecta a la validacion.
             'email' => [
-                'required', 'unique:users,email,' . request()->route('user')->id
+                'required', 'unique:users,email,' . request()->route('user')->id//email es requerido y unico para el usuario asignado.
             ],
-            'password' => 'sometimes'
+            'password' => 'sometimes'//es requerido segun cambio no es obligatorio.
         ];
     }
 
